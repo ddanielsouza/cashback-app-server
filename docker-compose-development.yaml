@@ -13,21 +13,9 @@ services:
       networks:
          - lemoney-network
    db:
-      image: postgres
-      environment:
-         - "POSTGRES_PASSWORD=docker"
-         - "POSTGRES_DB=123456"
+      image: mongo
       ports:
-         - "5432:5432"
-      networks:
-         - lemoney-network
-   pgadmin:
-      image: dpage/pgadmin4
-      environment:
-         PGADMIN_DEFAULT_EMAIL: "daniell.oliveirra@gmail.com"
-         PGADMIN_DEFAULT_PASSWORD: "docker"
-      ports:
-         - "5430:80"
+         - "27017:27017"
       networks:
          - lemoney-network
    redis:
