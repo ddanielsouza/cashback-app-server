@@ -1,0 +1,6 @@
+FROM node:14.15.1
+
+WORKDIR /app
+
+EXPOSE 3333
+CMD yarn && yarn dev:server
