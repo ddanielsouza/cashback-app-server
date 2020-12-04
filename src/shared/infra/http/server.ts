@@ -1,11 +1,13 @@
-import 'reflect-metadata';
 import 'express-async-errors';
 import 'dotenv/config';
+import 'reflect-metadata';
+import '@shared/container';
 
 import express, { Response, Request, NextFunction } from 'express';
 import cors from 'cors';
 import net from 'net';
 import AppError from '@shared/errors/AppError';
+import { createConnection } from 'typeorm';
 import routes from './routes';
 
 const app = express();
@@ -29,6 +31,8 @@ app.use((err: Error, _request: Request, response: Response, _next: NextFunction)
       message: 'Internal server error',
    });
 });
+
+createConnection();
 
 const listener = app.listen(3333, () => {
    const { port } = listener.address() as net.AddressInfo;

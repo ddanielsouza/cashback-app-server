@@ -25,8 +25,8 @@ export default class CreateUserService implements IServices {
          throw new AppError('Name is required');
       }
 
-      if (!email) {
-         throw new AppError('Email is required');
+      if (!email && /[0-9a-zA-Z._]@([0-9a-zA-Z_].?){1,3}/g.test(email)) {
+         throw new AppError('Email is missing or invalid');
       }
 
       if (!password || password.length < 6) {
