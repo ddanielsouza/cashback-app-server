@@ -18,12 +18,6 @@ services:
          - "27017:27017"
       networks:
          - lemoney-network
-   redis:
-      image: redis
-      ports:
-         - "6379:6379"
-      networks:
-         - lemoney-network
 networks:
    lemoney-network:
       driver: bridge

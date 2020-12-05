@@ -1,0 +1,28 @@
+import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
+import IOffer from '../models/IOffer';
+import IOfferRepository from '../repositories/IOfferRepository';
+
+interface IRequest {
+   id: string;
+}
+
+@injectable()
+export default class EnableOfferService {
+   constructor(
+      @inject('OfferRepository')
+      private offerRepository: IOfferRepository,
+   ) {}
+
+   public async execute({ id }: IRequest): Promise<IOffer> {
+      const offer = await this.offerRepository.findById(id);
+
+      if (!offer) {
+         throw new AppError('Offer does not found', 404);
+      }
+
+      const newOffer = this.offerRepository.updateById(id, { disable: false });
+
+      return newOffer;
+   }
+}

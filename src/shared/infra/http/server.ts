@@ -8,6 +8,7 @@ import cors from 'cors';
 import net from 'net';
 import AppError from '@shared/errors/AppError';
 import { createConnection } from 'typeorm';
+import { createUsersDefault } from 'bootstrap';
 import routes from './routes';
 
 const app = express();
@@ -32,7 +33,9 @@ app.use((err: Error, _request: Request, response: Response, _next: NextFunction)
    });
 });
 
-createConnection();
+createConnection().then(() => {
+   createUsersDefault();
+});
 
 const listener = app.listen(3333, () => {
    const { port } = listener.address() as net.AddressInfo;
