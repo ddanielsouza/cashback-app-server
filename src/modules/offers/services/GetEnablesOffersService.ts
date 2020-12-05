@@ -1,5 +1,4 @@
 import { inject, injectable } from 'tsyringe';
-import IOffer from '../models/IOffer';
 import IEnableOffersPagination from '../repositories/dtos/IEnableOffersPagination';
 import IOfferRepository from '../repositories/IOfferRepository';
 

@@ -9,7 +9,7 @@ import * as connection from '../../../utils/connection';
 let authenticateUser: AuthenticateUserService;
 let createUsers: CreateUserService;
 
-describe('CreateUsers', () => {
+describe('AuthenticateUser', () => {
    beforeAll(async () => {
       await connection.create();
    });
@@ -19,22 +19,25 @@ describe('CreateUsers', () => {
    });
 
    beforeEach(async () => {
-      await connection.clear();
       authenticateUser = container.resolve(AuthenticateUserService);
       createUsers = container.resolve(CreateUserService);
+   });
+
+   afterEach(async () => {
+      await connection.clear();
    });
 
    it('should be able to create a new session', async () => {
       expect({});
 
       await createUsers.execute({
-         name: 'Jhon doe',
-         email: 'jhondoe@gmail.com',
+         name: 'john doe',
+         email: 'johndoe@gmail.com',
          password: '123456',
       });
 
       const auth = await authenticateUser.execute({
-         email: 'jhondoe@gmail.com',
+         email: 'johndoe@gmail.com',
          password: '123456',
       });
 

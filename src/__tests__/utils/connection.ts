@@ -28,6 +28,8 @@ export const clear = async (): Promise<void> => {
 
       if (documents.length > 0) await repository.clear();
    }
+
+   await new Promise(r => setTimeout(r, 2000));
 };
 
 describe('Test connection', () => {
