@@ -42,7 +42,7 @@ export default class AuthenticateUserService {
          throw new AppError('Incorrect email/password combination.', 401);
       }
 
-      const token = await this.authProvider.authenticate(user.id.toHexString());
+      const token = await this.authProvider.authenticate(user.id);
 
       return { user, token };
    }

@@ -4,17 +4,21 @@ import {
    CreateDateColumn,
    UpdateDateColumn,
    ObjectIdColumn,
+   BeforeInsert,
 } from 'typeorm';
 
-import { ObjectID } from 'mongodb';
 import IOffer from '@modules/offers/models/IOffer';
 import { Expose } from 'class-transformer';
 import { isBefore } from 'date-fns';
+import { v4 } from 'uuid';
 
 @Entity('offers')
 class Offer implements IOffer {
    @ObjectIdColumn()
-   public id: ObjectID;
+   _id: string;
+
+   @Column()
+   id: string;
 
    @Column()
    advertiser_name: string;
@@ -60,6 +64,11 @@ class Offer implements IOffer {
       }
 
       return isBefore(this.ends_at, currentDate);
+   }
+
+   @BeforeInsert()
+   onBeforeInsert(): void {
+      this.id = v4();
    }
 }
 

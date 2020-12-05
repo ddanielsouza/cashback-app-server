@@ -4,16 +4,20 @@ import {
    CreateDateColumn,
    UpdateDateColumn,
    ObjectIdColumn,
+   BeforeInsert,
 } from 'typeorm';
 
 import { Exclude } from 'class-transformer';
 import IUser from '@modules/users/models/IUser';
-import { ObjectID } from 'mongodb';
+import { v4 } from 'uuid';
 
 @Entity('users')
 class User implements IUser {
    @ObjectIdColumn()
-   public id: ObjectID;
+   _id: string;
+
+   @Column()
+   id: string;
 
    @Column()
    public name: string;
@@ -30,6 +34,11 @@ class User implements IUser {
 
    @UpdateDateColumn()
    public updatedAt: Date;
+
+   @BeforeInsert()
+   onBeforeInsert(): void {
+      this.id = v4();
+   }
 }
 
 export default User;

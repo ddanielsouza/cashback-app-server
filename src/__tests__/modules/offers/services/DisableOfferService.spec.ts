@@ -4,6 +4,7 @@ import '@shared/container';
 import { container } from 'tsyringe';
 import CreateOfferService from '@modules/offers/services/CreateOfferService';
 import DisableOfferService from '@modules/offers/services/DisableOfferService';
+import AppError from '@shared/errors/AppError';
 import * as connection from '../../../utils/connection';
 
 let createOffer: CreateOfferService;
@@ -28,7 +29,6 @@ describe('DisableOffer', () => {
    });
 
    it('should be able to disable the offer', async () => {
-      expect({});
       const offer = await createOffer.execute({
          advertiser_name: 'Google.com',
          url: 'https://google.com.br',
@@ -38,9 +38,15 @@ describe('DisableOffer', () => {
       });
 
       const offerUpdated = await disableOffer.execute({
-         id: offer.id.toHexString(),
+         id: offer.id,
       });
 
       expect(offerUpdated.disable).toBe(true);
+   });
+
+   it('should be able to throw an exception if not found offer', async () => {
+      await expect(
+         disableOffer.execute({ id: 'non-exist-offer' }),
+      ).rejects.toBeInstanceOf(AppError);
    });
 });

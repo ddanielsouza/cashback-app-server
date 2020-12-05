@@ -28,7 +28,6 @@ describe('GetOfferById', () => {
    });
 
    it('should be able to get offer by id', async () => {
-      expect({});
       const offer = await createOffer.execute({
          advertiser_name: 'Google.com',
          url: 'https://google.com.br',
@@ -38,7 +37,7 @@ describe('GetOfferById', () => {
       });
 
       const foundOffer = await getOfferById.execute({
-         id: offer.id.toHexString(),
+         id: offer.id,
       });
 
       expect(foundOffer.advertiser_name).toBe('Google.com');

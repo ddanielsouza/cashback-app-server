@@ -28,7 +28,6 @@ describe('CreateOffer', () => {
    });
 
    it('should be able to get all offers', async () => {
-      expect({});
       await createOffer.execute({
          advertiser_name: 'Google.com',
          url: 'https://google.com.br',

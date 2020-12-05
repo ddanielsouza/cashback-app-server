@@ -26,7 +26,21 @@ class OffersRepository implements IOfferRepository {
    }
 
    public async findById(id: string): Promise<Offer | undefined> {
-      const offer = await this.ormRepository.findOne(id);
+      const offer = await this.ormRepository.findOne({
+         id,
+      });
+
+      return offer;
+   }
+
+   public async findByAdvertiserNameIgnoreCase(
+      name: string,
+   ): Promise<Offer | undefined> {
+      const offer = await this.ormRepository.findOne({
+         where: {
+            advertiser_name: { $regex: new RegExp(name, 'i') },
+         },
+      });
 
       return offer;
    }
@@ -40,7 +54,7 @@ class OffersRepository implements IOfferRepository {
    }
 
    public async updateById(id: string, data: Partial<IOffer>): Promise<Offer> {
-      const offer = await this.ormRepository.findOne(id);
+      const offer = await this.ormRepository.findOne({ id });
 
       if (!offer) {
          throw new AppError('Offer does not found');
@@ -54,7 +68,7 @@ class OffersRepository implements IOfferRepository {
    }
 
    public async deleteById(id: string): Promise<void> {
-      await this.ormRepository.delete(id);
+      await this.ormRepository.delete({ id });
    }
 
    public async findEnableOffers({

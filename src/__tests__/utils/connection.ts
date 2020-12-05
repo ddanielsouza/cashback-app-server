@@ -1,16 +1,26 @@
 import { createConnection, getConnection } from 'typeorm';
 
 export const create = async (): Promise<void> => {
-   await createConnection({
-      name: 'default',
-      type: 'mongodb',
-      host: 'localhost',
-      port: 27017,
-      username: '',
-      password: '',
-      database: 'test-application',
-      entities: ['src/modules/**/infra/typeorm/entities/*.ts'],
-   });
+   let createConn = false;
+   try {
+      const connection = getConnection();
+      createConn = !connection || !connection.isConnected;
+   } catch (e) {
+      createConn = true;
+   }
+
+   if (createConn) {
+      await createConnection({
+         name: 'default',
+         type: 'mongodb',
+         host: 'localhost',
+         port: 27017,
+         username: '',
+         password: '',
+         database: 'test-application',
+         entities: ['src/modules/**/infra/typeorm/entities/*.ts'],
+      });
+   }
 };
 
 export const close = async (): Promise<void> => {
@@ -28,8 +38,6 @@ export const clear = async (): Promise<void> => {
 
       if (documents.length > 0) await repository.clear();
    }
-
-   await new Promise(r => setTimeout(r, 2000));
 };
 
 describe('Test connection', () => {

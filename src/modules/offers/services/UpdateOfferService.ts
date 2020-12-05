@@ -65,14 +65,11 @@ export default class UpdateOfferService {
          }
       }
 
-      const foundOfferByAdvertiseName = await this.offerRepository.findOne({
-         advertiser_name: advertiser_name.trim(),
-      });
+      const foundOfferByAdvertiseName = await this.offerRepository.findByAdvertiserNameIgnoreCase(
+         advertiser_name.trim(),
+      );
 
-      if (
-         foundOfferByAdvertiseName &&
-         foundOfferByAdvertiseName.id.toHexString() !== id
-      ) {
+      if (foundOfferByAdvertiseName && foundOfferByAdvertiseName.id !== id) {
          throw new AppError('Advertiser name is already in use', 409);
       }
 

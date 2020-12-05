@@ -1,0 +1,15 @@
+{
+   "name": "default",
+   "type": "mongodb",
+   "host": "db",
+   "port": 27017,
+   "username": "",
+   "password": "",
+   "database": "db",
+   "entities": [
+      "./src/modules/**/infra/typeorm/entities/*.ts"
+   ],
+   "migrations": [
+      "./src/shared/infra/typeorm/migrations/*.ts"
+   ]
+}

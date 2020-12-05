@@ -28,14 +28,13 @@ describe('GetUserById', () => {
    });
 
    it('should be able to get user by email', async () => {
-      expect({});
       const userCreated = await createUsers.execute({
          name: 'john doe',
          email: 'johndoe@gmail.com',
          password: '123456',
       });
 
-      const user = await getUserById.execute({ id: userCreated.id.toHexString() });
+      const user = await getUserById.execute({ id: userCreated.id });
 
       expect(user.email).toBe('johndoe@gmail.com');
       expect(user.name).toBe('john doe');

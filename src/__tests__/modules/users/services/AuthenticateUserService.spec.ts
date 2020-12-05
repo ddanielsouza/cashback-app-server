@@ -28,7 +28,7 @@ describe('AuthenticateUser', () => {
    });
 
    it('should be able to create a new session', async () => {
-      expect({});
+      ;
 
       await createUsers.execute({
          name: 'john doe',

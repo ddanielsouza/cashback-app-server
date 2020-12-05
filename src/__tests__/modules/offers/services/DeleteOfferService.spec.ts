@@ -32,7 +32,6 @@ describe('DeleteOffer', () => {
    });
 
    it('should be able to delete offer', async () => {
-      expect({});
       const offer = await createOffer.execute({
          advertiser_name: 'Google.com',
          url: 'https://google.com.br',
@@ -41,10 +40,16 @@ describe('DeleteOffer', () => {
          premium: true,
       });
 
-      await deleteOffer.execute({ id: offer.id.toHexString() });
+      await deleteOffer.execute({ id: offer.id });
 
+      await expect(getOfferById.execute({ id: offer.id })).rejects.toBeInstanceOf(
+         AppError,
+      );
+   });
+
+   it('should be able to throw an exception if not found offer', async () => {
       await expect(
-         getOfferById.execute({ id: offer.id.toHexString() }),
+         deleteOffer.execute({ id: 'non-exist-offer' }),
       ).rejects.toBeInstanceOf(AppError);
    });
 });

@@ -10,4 +10,5 @@ export default interface IOfferRepository {
    updateById(id: string, data: Partial<IOffer>): Promise<IOffer>;
    deleteById(id: string): Promise<void>;
    findEnableOffers(data: IFindEnableOffersDTO): Promise<IEnableOffersPagination>;
+   findByAdvertiserNameIgnoreCase(name: string): Promise<IOffer | undefined>;
 }

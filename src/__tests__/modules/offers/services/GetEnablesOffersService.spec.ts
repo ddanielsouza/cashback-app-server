@@ -31,7 +31,6 @@ describe('CreateOffer', () => {
    });
 
    it('should be able to get active offers', async () => {
-      expect({});
       const offer = await createOffer.execute({
          advertiser_name: 'Google.com',
          url: 'https://google.com.br',
@@ -41,10 +40,30 @@ describe('CreateOffer', () => {
       });
 
       await enableOffer.execute({
-         id: offer.id.toHexString(),
+         id: offer.id,
       });
 
       const paginate = await getEnablesOffers.execute({ limit: 10, page: 1 });
+      expect(paginate.total).toBe(1);
+      expect(paginate.pages).toBe(1);
+      expect(paginate.offers.length).toBe(1);
+   });
+
+   it('should be able to get active offers without params', async () => {
+      const offer = await createOffer.execute({
+         advertiser_name: 'Google.com',
+         url: 'https://google.com.br',
+         description: 'Google 50% desconto',
+         starts_at: new Date('2019-01-01'),
+         premium: true,
+      });
+
+      await enableOffer.execute({
+         id: offer.id,
+      });
+
+      const data = {} as { limit: number; page: number };
+      const paginate = await getEnablesOffers.execute(data);
       expect(paginate.total).toBe(1);
       expect(paginate.pages).toBe(1);
       expect(paginate.offers.length).toBe(1);

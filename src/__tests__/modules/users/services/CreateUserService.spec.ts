@@ -25,7 +25,7 @@ describe('CreateUsers', () => {
    });
 
    it('should be able to create a new user', async () => {
-      expect({});
+      ;
       const user = await createUsers.execute({
          name: 'john doe',
          email: 'johndoe@gmail.com',

@@ -1,6 +1,7 @@
 import IUser from '@modules/users/models/IUser';
 import IUserRepository from '@modules/users/repositories/IUserRepository';
 import { getRepository, Repository } from 'typeorm';
+import { v4 } from 'uuid';
 import User from '../entities/User';
 
 class UsersRepository implements IUserRepository {
@@ -11,7 +12,7 @@ class UsersRepository implements IUserRepository {
    }
 
    public async findById(id: string): Promise<User | undefined> {
-      const user = await this.ormRepository.findOne(id);
+      const user = await this.ormRepository.findOne({ id });
 
       return user;
    }
@@ -23,7 +24,7 @@ class UsersRepository implements IUserRepository {
    }
 
    public async create(data: Omit<IUser, 'id'>): Promise<User> {
-      const user = this.ormRepository.create(data);
+      const user = this.ormRepository.create({ id: v4(), ...data });
 
       await this.ormRepository.save(user);
 

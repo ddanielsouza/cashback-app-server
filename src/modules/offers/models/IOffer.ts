@@ -1,7 +1,5 @@
-import { ObjectID } from 'mongodb';
-
 export default interface IOffer {
-   id: ObjectID;
+   id: string;
    advertiser_name: string;
    url: string;
    description: string;
