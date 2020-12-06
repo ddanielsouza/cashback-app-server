@@ -32,7 +32,7 @@ yarn docker:server
 
 ### Main Libs and infrastructure services
 #### :heavy_check_mark: [TypeORM](https://github.com/typeorm/typeorm)
-#### :heavy_check_mark: [TSyringe](ttps://github.com/microsoft/tsyringe)
+#### :heavy_check_mark: [TSyringe](https://github.com/microsoft/tsyringe)
 #### :heavy_check_mark: [MongoDB](https://www.mongodb.com)
 #### :heavy_check_mark: [Express](https://github.com/expressjs/express)
 
