@@ -12,7 +12,7 @@
     "start": "ts-node ./src/shared/infra/http/server.ts",
     "typeorm": "npx cross-env ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "jest --runInBand",
-    "docker:server": "docker-compose -f docker-compose-development.yaml down && docker-compose -f docker-compose-development.yaml up --build -d && docker logs -f lemoney_api"
+    "docker:server": "docker-compose -f docker-compose-development.yaml down && docker-compose -f docker-compose-development.yaml up --build -d && docker logs -f cashbackapp_api"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
@@ -65,7 +65,7 @@
     "redis": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.3.0",
-    "typeorm": "^0.2.25",
+    "typeorm": "^0.2.29",
     "uuid": "^8.3.1",
     "yup": "^0.29.3"
   }
